@@ -1,0 +1,177 @@
+{
+    "facets": {
+        "quiz_log": {
+            "facetAttributes": {
+                "id": {
+                    "attributeDefinition": {
+                        "attributeType": "NUMBER",
+                        "isImmutable": true,
+                        "attributeRules": {
+                            "IDComparison": {
+                                "parameters": {
+                                    "greaterThanOrEqual": "1"
+                                },
+                                "ruleType": "NUMBER_COMPARISON"
+                            }
+                        }
+                    },
+                    "requiredBehavior": "REQUIRED_ALWAYS"
+                },
+                "session_id": {
+                    "attributeDefinition": {
+                        "attributeType": "STRING",
+                        "isImmutable": false
+                    },
+                    "requiredBehavior": "NOT_REQUIRED"
+                },
+                "question_number": {
+                    "attributeDefinition": {
+                        "attributeType": "NUMBER",
+                        "isImmutable": false
+                    },
+                    "requiredBehavior": "NOT_REQUIRED"
+                },
+                "question_id": {
+                    "attributeDefinition": {
+                        "attributeType": "NUMBER",
+                        "isImmutable": false
+                    },
+                    "requiredBehavior": "NOT_REQUIRED"
+                },
+                "variable_name": {
+                    "attributeDefinition": {
+                        "attributeType": "STRING",
+                        "isImmutable": false
+                    },
+                    "requiredBehavior": "NOT_REQUIRED"
+                },
+                "question": {
+                    "attributeDefinition": {
+                        "attributeType": "STRING",
+                        "isImmutable": false
+                    },
+                    "requiredBehavior": "NOT_REQUIRED"
+                },
+                "answer_string": {
+                    "attributeDefinition": {
+                        "attributeType": "STRING",
+                        "isImmutable": false
+                    },
+                    "requiredBehavior": "NOT_REQUIRED"
+                }
+            },
+            "objectType": "LEAF_NODE"
+        },
+        "session_info": {
+            "facetAttributes": {
+                "id": {
+                    "attributeDefinition": {
+                        "attributeType": "NUMBER",
+                        "isImmutable": true,
+                        "attributeRules": {
+                            "IDComparison": {
+                                "parameters": {
+                                    "greaterThanOrEqual": "1"
+                                },
+                                "ruleType": "NUMBER_COMPARISON"
+                            }
+                        }
+                    },
+                    "requiredBehavior": "REQUIRED_ALWAYS"
+                },
+                "session_id": {
+                    "attributeDefinition": {
+                        "attributeType": "STRING",
+                        "isImmutable": false
+                    },
+                    "requiredBehavior": "REQUIRED_ALWAYS"
+                },
+                "page_load_time": {
+                    "attributeDefinition": {
+                        "attributeType": "DATETIME",
+                        "isImmutable": false
+                    },
+                    "requiredBehavior": "REQUIRED_ALWAYS"
+                },
+                "submission_time": {
+                    "attributeDefinition": {
+                        "attributeType": "DATETIME",
+                        "isImmutable": false
+                    },
+                    "requiredBehavior": "REQUIRED_ALWAYS"
+                },
+                "gender": {
+                    "attributeDefinition": {
+                        "attributeType": "STRING",
+                        "isImmutable": false
+                    },
+                    "requiredBehavior": "NOT_REQUIRED"
+                },
+                "education": {
+                    "attributeDefinition": {
+                        "attributeType": "STRING",
+                        "isImmutable": false
+                    },
+                    "requiredBehavior": "NOT_REQUIRED"
+                },
+                "age": {
+                    "attributeDefinition": {
+                        "attributeType": "STRING",
+                        "isImmutable": false
+                    },
+                    "requiredBehavior": "NOT_REQUIRED"
+                },
+                "religion": {
+                    "attributeDefinition": {
+                        "attributeType": "STRING",
+                        "isImmutable": false
+                    },
+                    "requiredBehavior": "NOT_REQUIRED"
+                },
+                "political_ideology": {
+                    "attributeDefinition": {
+                        "attributeType": "STRING",
+                        "isImmutable": false
+                    },
+                    "requiredBehavior": "NOT_REQUIRED"
+                },
+                "occupation": {
+                    "attributeDefinition": {
+                        "attributeType": "STRING",
+                        "isImmutable": false
+                    },
+                    "requiredBehavior": "NOT_REQUIRED"
+                },
+                "household_income": {
+                    "attributeDefinition": {
+                        "attributeType": "STRING",
+                        "isImmutable": false
+                    },
+                    "requiredBehavior": "NOT_REQUIRED"
+                },
+                "relationship": {
+                    "attributeDefinition": {
+                        "attributeType": "STRING",
+                        "isImmutable": false
+                    },
+                    "requiredBehavior": "NOT_REQUIRED"
+                },
+                "news_use": {
+                    "attributeDefinition": {
+                        "attributeType": "STRING",
+                        "isImmutable": false
+                    },
+                    "requiredBehavior": "NOT_REQUIRED"
+                },
+                "social_media_use": {
+                    "attributeDefinition": {
+                        "attributeType": "STRING",
+                        "isImmutable": false
+                    },
+                    "requiredBehavior": "NOT_REQUIRED"
+                }
+            },
+            "objectType": "LEAF_NODE"
+        }
+    }
+}
