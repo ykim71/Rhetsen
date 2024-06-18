@@ -1,7 +1,41 @@
+
 body{
-    background-color:#CAC9B5;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
+  background-color:#CAC9B5;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+h1 {
+  font-family: Palatino, 'Palatino Linotype', serif;
+  color: rgb(121,149,117);
+	font-size: 50px;
+}
+
+h2 {
+	font-family: 'Arial', serif;
+	font-size: 20px;
+	text-align: left;
+}
+
+p {
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.hero a {
+	color: #00FFAA;
+	font-size: 1.25rem;
+	text-decoration: none;
+}
+
+#footer {
+  font-size: 0.25rem;
+  
+}
+
+.highlight-text{
+	font-weight: bold;
+	font-style: italic;
 }
 
 /* Result Summary Section */
@@ -105,4 +139,22 @@ body{
   align-items: center;
   height: 200px;
   margin-top: 50px;
+}
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+.paragraph {
+  margin-left: 20px; /* Adjusts left margin */
+  margin-right: 20px; /* Adjusts right margin */
 }
