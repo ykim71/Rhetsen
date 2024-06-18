@@ -119,12 +119,6 @@ img {
   border-radius: 8px;
 }
 
-.action-buttons .btn {
-  margin: 0 10px;
-  padding: 10px 20px;
-  font-size: 1em;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .question-text {
