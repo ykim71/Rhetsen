@@ -38,6 +38,15 @@ p {
 	font-style: italic;
 }
 
+.centered {
+  text-align: center; /* Centers the text and inline elements within */
+}
+
+img {
+  display: block; /* Makes img a block element to center with margin */
+  margin: auto; /* Auto margins center the block element */
+}
+
 /* Result Summary Section */
 .result-summary h2, .result-summary h3 {
   text-align: center;
