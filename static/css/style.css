@@ -112,8 +112,11 @@ img {
 /* Responsive Design */
 @media (max-width: 768px) {
   .question-text {
-      font-size: 5em;
-  };
+      font-size: 14px; /* Smaller font size for mobile devices */
+  }
+  h1, h2, h3 {
+      font-size: 16px; /* Adjust heading sizes for a more unified appearance */
+  }
 }
 
 .question-title h3, .question-title h5 {
