@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import json
-import random
 import pymysql
+from pymysql.constants import CLIENT
 from datetime import datetime
 import os
 
@@ -23,6 +23,23 @@ mysql = pymysql.connect(
     db=app.config['MYSQL_DB'],
     cursorclass=pymysql.cursors.DictCursor
 )
+def connect_to_database():
+    try:
+        conn = pymysql.connect(
+            host=app.config['MYSQL_HOST'], 
+            user=app.config['MYSQL_USER']
+            password=app.config['MYSQL_PASSWORD'], 
+            db=app.config['MYSQL_DB'], 
+            charset='utf8mb4', 
+            client_flag=CLIENT.MULTI_STATEMENTS)
+        return conn
+
+    except pymysql.err.OperationalError as e:
+        if e.args[0] == 2006:
+            # Handle the server gone away error
+            print("Reconnecting to the database...")
+            return connect_to_database()
+        raise e
 
 # Load questions from JSON file
 with open('questions_rhetsen.json', 'r') as file:
@@ -56,6 +73,7 @@ def generate_session_id():
 
 @app.route('/submit', methods=['POST'])
 def submit():
+    conn = connect_to_database()
 
     Sensitivity_level = 0  
     Assertiveness_level = 0  
@@ -228,6 +246,7 @@ def submit():
     # Commit the changes to the database
     mysql.commit()
     cursor.close()
+    conn.close()
 
     return render_template('result.html', Sensitivity_level=Sensitivity_level, Assertiveness_level=Assertiveness_level, Reflector_level=Reflector_level, results=results)
 
