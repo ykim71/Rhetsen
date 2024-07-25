@@ -1,10 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, current_app
 import json
-import random
 import pymysql
 from datetime import datetime
 import os
-MYSQL_PASSWORD = os.environ.get('MYSQL_PASSWORD')
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -12,18 +10,26 @@ app.secret_key = 'your_secret_key'
 # Configure the MySQL database connection
 app.config['MYSQL_HOST'] = 'database-rhetsen.c1eie2062f9x.us-east-2.rds.amazonaws.com'
 app.config['MYSQL_USER'] = 'admin'
-app.config['MYSQL_PASSWORD'] = MYSQL_PASSWORD
+app.config['MYSQL_PASSWORD'] = os.environ.get('MYSQL_PASSWORD')
 app.config['MYSQL_DB'] = 'quiz_app'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
-# Create a MySQL database connection
-mysql = pymysql.connect(
-    host=app.config['MYSQL_HOST'],
-    user=app.config['MYSQL_USER'],
-    password=app.config['MYSQL_PASSWORD'],
-    db=app.config['MYSQL_DB'],
-    cursorclass=pymysql.cursors.DictCursor
-)
+def connect_to_database():
+    try:
+        conn = pymysql.connect(
+            host=current_app.config['MYSQL_HOST'],
+            user=current_app.config['MYSQL_USER'],
+            password=current_app.config['MYSQL_PASSWORD'],
+            db=current_app.config['MYSQL_DB'],
+            charset='utf8mb4',
+            cursorclass=pymysql.cursors.DictCursor
+        )
+        return conn
+    except pymysql.err.OperationalError as e:
+        if e.args[0] == 2006:
+            print("Reconnecting to the database...")
+            return connect_to_database()
+        raise e
 
 # Load questions from JSON file
 with open('questions_rhetsen.json', 'r') as file:
@@ -57,6 +63,8 @@ def generate_session_id():
 
 @app.route('/submit', methods=['POST'])
 def submit():
+    conn = connect_to_database()
+    cursor = conn.cursor()
 
     Sensitivity_level = 0  
     Assertiveness_level = 0  
@@ -227,8 +235,8 @@ def submit():
             
 
     # Commit the changes to the database
-    mysql.commit()
     cursor.close()
+    conn.close()
 
     return render_template('result.html', Sensitivity_level=Sensitivity_level, Assertiveness_level=Assertiveness_level, Reflector_level=Reflector_level, results=results)
 
