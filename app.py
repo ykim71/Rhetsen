@@ -27,7 +27,7 @@ def connect_to_database():
     try:
         conn = pymysql.connect(
             host=app.config['MYSQL_HOST'], 
-            user=app.config['MYSQL_USER']
+            user=app.config['MYSQL_USER'],
             password=app.config['MYSQL_PASSWORD'], 
             db=app.config['MYSQL_DB'], 
             charset='utf8mb4', 
