@@ -24,23 +24,6 @@ mysql = pymysql.connect(
     db=app.config['MYSQL_DB'],
     cursorclass=pymysql.cursors.DictCursor
 )
-# def connect_to_database():
-#     try:
-#         conn = pymysql.connect(
-#             host=app.config['MYSQL_HOST'], 
-#             user=app.config['MYSQL_USER'],
-#             password=app.config['MYSQL_PASSWORD'], 
-#             db=app.config['MYSQL_DB'], 
-#             charset='utf8mb4', 
-#             client_flag=CLIENT.MULTI_STATEMENTS)
-#         return conn
-
-#     except pymysql.err.OperationalError as e:
-#         if e.args[0] == 2006:
-#             # Handle the server gone away error
-#             print("Reconnecting to the database...")
-#             return connect_to_database()
-#         raise e
 
 # Load questions from JSON file
 with open('questions_rhetsen.json', 'r') as file:
