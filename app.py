@@ -24,23 +24,23 @@ mysql = pymysql.connect(
     db=app.config['MYSQL_DB'],
     cursorclass=pymysql.cursors.DictCursor
 )
-def connect_to_database():
-    try:
-        conn = pymysql.connect(
-            host=app.config['MYSQL_HOST'], 
-            user=app.config['MYSQL_USER'],
-            password=app.config['MYSQL_PASSWORD'], 
-            db=app.config['MYSQL_DB'], 
-            charset='utf8mb4', 
-            client_flag=CLIENT.MULTI_STATEMENTS)
-        return conn
+# def connect_to_database():
+#     try:
+#         conn = pymysql.connect(
+#             host=app.config['MYSQL_HOST'], 
+#             user=app.config['MYSQL_USER'],
+#             password=app.config['MYSQL_PASSWORD'], 
+#             db=app.config['MYSQL_DB'], 
+#             charset='utf8mb4', 
+#             client_flag=CLIENT.MULTI_STATEMENTS)
+#         return conn
 
-    except pymysql.err.OperationalError as e:
-        if e.args[0] == 2006:
-            # Handle the server gone away error
-            print("Reconnecting to the database...")
-            return connect_to_database()
-        raise e
+#     except pymysql.err.OperationalError as e:
+#         if e.args[0] == 2006:
+#             # Handle the server gone away error
+#             print("Reconnecting to the database...")
+#             return connect_to_database()
+#         raise e
 
 # Load questions from JSON file
 with open('questions_rhetsen.json', 'r') as file:
@@ -74,7 +74,13 @@ def generate_session_id():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    conn = connect_to_database()
+    conn = pymysql.connect(
+        host=app.config['MYSQL_HOST'], 
+        user=app.config['MYSQL_USER'],
+        password=app.config['MYSQL_PASSWORD'], 
+        db=app.config['MYSQL_DB'], 
+        charset='utf8mb4', 
+        client_flag=CLIENT.MULTI_STATEMENTS)
 
     Sensitivity_level = 0  
     Assertiveness_level = 0  
@@ -213,7 +219,6 @@ def submit():
         demo_answers.append(request.form.getlist(str(question_id)))
 
     cursor = mysql.cursor()
-    connection.ping(reconnect=True)
     cursor.execute(
         "INSERT INTO session_info (session_id, page_load_time, submission_time, gender, education, age, religion, political_ideology, occupation, household_income, relationship, news_use, social_media_use) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
         (session.get('session_id'), session.get('page_load_time'), datetime.now(), demo_answers[0], demo_answers[1], demo_answers[2], demo_answers[3], demo_answers[4],demo_answers[5],demo_answers[6],demo_answers[7], demo_answers[8], demo_answers[9])
