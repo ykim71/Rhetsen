@@ -3,7 +3,6 @@ import json
 import pymysql
 from pymysql.constants import CLIENT
 from pymysql import connect
-from pymysql import connection
 from datetime import datetime
 import os
 
