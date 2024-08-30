@@ -65,7 +65,7 @@ def submit():
         charset='utf8mb4', 
         client_flag=CLIENT.MULTI_STATEMENTS)
     
-    connection.ping(reconnect=True)      
+    conn.ping(reconnect=True)      
 
 
     Sensitivity_level = 0  
