@@ -3,6 +3,7 @@ import json
 import pymysql
 from pymysql.constants import CLIENT
 from pymysql import connect
+from pymysql import connection
 from datetime import datetime
 import os
 
@@ -64,6 +65,9 @@ def submit():
         db=app.config['MYSQL_DB'], 
         charset='utf8mb4', 
         client_flag=CLIENT.MULTI_STATEMENTS)
+    
+    connection.ping(reconnect=True)      
+
 
     Sensitivity_level = 0  
     Assertiveness_level = 0  
