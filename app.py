@@ -40,10 +40,13 @@ def home():
         user=app.config['MYSQL_USER'],
         password=app.config['MYSQL_PASSWORD'],
         db=app.config['MYSQL_DB'],
-        cursorclass=pymysql.cursors.DictCursor
-)
+        cursorclass=pymysql.cursors.DictCursor)
+    
+    cursor = mysql.cursor()
     mysql.ping(reconnect=True)
     mysql.close() 
+    cursor.close()
+
     return render_template('index.html')
 
 @app.route('/rhetsen')
