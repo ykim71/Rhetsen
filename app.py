@@ -35,16 +35,8 @@ with open('questions_demo.json', 'r') as file:
 
 @app.route('/')
 def home():
-    conn = pymysql.connect(
-        host=app.config['MYSQL_HOST'], 
-        user=app.config['MYSQL_USER'],
-        password=app.config['MYSQL_PASSWORD'], 
-        db=app.config['MYSQL_DB'], 
-        charset='utf8mb4', 
-        client_flag=CLIENT.MULTI_STATEMENTS)
-    
-    conn.ping(reconnect=True)
-    conn.close() 
+    mysql.ping(reconnect=True)
+    mysql.close() 
     return render_template('index.html')
 
 @app.route('/rhetsen')
@@ -54,16 +46,6 @@ def rhetsen():
     session['page_load_time'] = datetime.now()  # Store the page load time
 
     session['demo_questions'] = demo_questions
-
-    conn = pymysql.connect(
-        host=app.config['MYSQL_HOST'], 
-        user=app.config['MYSQL_USER'],
-        password=app.config['MYSQL_PASSWORD'], 
-        db=app.config['MYSQL_DB'], 
-        charset='utf8mb4', 
-        client_flag=CLIENT.MULTI_STATEMENTS)
-    
-    conn.ping(reconnect=True)
 
     # Pass the num_questions variable to the template
     return render_template('rhetsen.html', questions=questions, demo_questions=demo_questions)
@@ -76,15 +58,15 @@ def generate_session_id():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    conn = pymysql.connect(
-        host=app.config['MYSQL_HOST'], 
-        user=app.config['MYSQL_USER'],
-        password=app.config['MYSQL_PASSWORD'], 
-        db=app.config['MYSQL_DB'], 
-        charset='utf8mb4', 
-        client_flag=CLIENT.MULTI_STATEMENTS)
+    # conn = pymysql.connect(
+    #     host=app.config['MYSQL_HOST'], 
+    #     user=app.config['MYSQL_USER'],
+    #     password=app.config['MYSQL_PASSWORD'], 
+    #     db=app.config['MYSQL_DB'], 
+    #     charset='utf8mb4', 
+    #     client_flag=CLIENT.MULTI_STATEMENTS)
     
-    conn.ping(reconnect=True)      
+    # conn.ping(reconnect=True)      
 
     Sensitivity_level = 0  
     Assertiveness_level = 0  
@@ -257,7 +239,7 @@ def submit():
     # Commit the changes to the database
     mysql.commit()
     cursor.close()
-    conn.close()
+    # conn.close()
 
     return render_template('result.html', Sensitivity_level=Sensitivity_level, Assertiveness_level=Assertiveness_level, Reflector_level=Reflector_level, results=results)
 
