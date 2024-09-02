@@ -35,6 +35,16 @@ with open('questions_demo.json', 'r') as file:
 
 @app.route('/')
 def home():
+    conn = pymysql.connect(
+        host=app.config['MYSQL_HOST'], 
+        user=app.config['MYSQL_USER'],
+        password=app.config['MYSQL_PASSWORD'], 
+        db=app.config['MYSQL_DB'], 
+        charset='utf8mb4', 
+        client_flag=CLIENT.MULTI_STATEMENTS)
+    
+    conn.ping(reconnect=True)
+    conn.close() 
     return render_template('index.html')
 
 @app.route('/rhetsen')
@@ -63,20 +73,29 @@ def rhetsen():
 # Function to generate a unique session ID
 def generate_session_id():
     import uuid
+    conn = pymysql.connect(
+        host=app.config['MYSQL_HOST'], 
+        user=app.config['MYSQL_USER'],
+        password=app.config['MYSQL_PASSWORD'], 
+        db=app.config['MYSQL_DB'], 
+        charset='utf8mb4', 
+        client_flag=CLIENT.MULTI_STATEMENTS)
+    
+    conn.ping(reconnect=True)     
     return str(uuid.uuid4())
 
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    # conn = pymysql.connect(
-    #     host=app.config['MYSQL_HOST'], 
-    #     user=app.config['MYSQL_USER'],
-    #     password=app.config['MYSQL_PASSWORD'], 
-    #     db=app.config['MYSQL_DB'], 
-    #     charset='utf8mb4', 
-    #     client_flag=CLIENT.MULTI_STATEMENTS)
+    conn = pymysql.connect(
+        host=app.config['MYSQL_HOST'], 
+        user=app.config['MYSQL_USER'],
+        password=app.config['MYSQL_PASSWORD'], 
+        db=app.config['MYSQL_DB'], 
+        charset='utf8mb4', 
+        client_flag=CLIENT.MULTI_STATEMENTS)
     
-    # conn.ping(reconnect=True)      
+    conn.ping(reconnect=True)      
 
     Sensitivity_level = 0  
     Assertiveness_level = 0  
