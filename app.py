@@ -64,8 +64,6 @@ def rhetsen():
         client_flag=CLIENT.MULTI_STATEMENTS)
     
     conn.ping(reconnect=True)
-    conn.close()   
-
 
     # Pass the num_questions variable to the template
     return render_template('rhetsen.html', questions=questions, demo_questions=demo_questions)
@@ -73,15 +71,6 @@ def rhetsen():
 # Function to generate a unique session ID
 def generate_session_id():
     import uuid
-    conn = pymysql.connect(
-        host=app.config['MYSQL_HOST'], 
-        user=app.config['MYSQL_USER'],
-        password=app.config['MYSQL_PASSWORD'], 
-        db=app.config['MYSQL_DB'], 
-        charset='utf8mb4', 
-        client_flag=CLIENT.MULTI_STATEMENTS)
-    
-    conn.ping(reconnect=True)     
     return str(uuid.uuid4())
 
 
@@ -268,7 +257,7 @@ def submit():
     # Commit the changes to the database
     mysql.commit()
     cursor.close()
-    # conn.close()
+    conn.close()
 
     return render_template('result.html', Sensitivity_level=Sensitivity_level, Assertiveness_level=Assertiveness_level, Reflector_level=Reflector_level, results=results)
 
