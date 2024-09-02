@@ -36,11 +36,11 @@ with open('questions_demo.json', 'r') as file:
 @app.route('/')
 def home():
     mysql = pymysql.connect(
-    host=app.config['MYSQL_HOST'],
-    user=app.config['MYSQL_USER'],
-    password=app.config['MYSQL_PASSWORD'],
-    db=app.config['MYSQL_DB'],
-    cursorclass=pymysql.cursors.DictCursor
+        host=app.config['MYSQL_HOST'],
+        user=app.config['MYSQL_USER'],
+        password=app.config['MYSQL_PASSWORD'],
+        db=app.config['MYSQL_DB'],
+        cursorclass=pymysql.cursors.DictCursor
 )
     mysql.ping(reconnect=True)
     mysql.close() 
