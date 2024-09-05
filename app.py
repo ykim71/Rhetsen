@@ -44,7 +44,6 @@ def home():
     
     cursor = mysql.cursor()
     mysql.ping(reconnect=True)
-    mysql.close() 
     cursor.close()
 
     return render_template('index.html')
@@ -249,7 +248,7 @@ def submit():
     # Commit the changes to the database
     mysql.commit()
     cursor.close()
-    # conn.close()
+    mysql.close() 
 
     return render_template('result.html', Sensitivity_level=Sensitivity_level, Assertiveness_level=Assertiveness_level, Reflector_level=Reflector_level, results=results)
 
