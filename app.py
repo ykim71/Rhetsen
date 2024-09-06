@@ -75,16 +75,7 @@ def generate_session_id():
 
 
 @app.route('/submit', methods=['POST'])
-def submit():
-    # conn = pymysql.connect(
-    #     host=app.config['MYSQL_HOST'], 
-    #     user=app.config['MYSQL_USER'],
-    #     password=app.config['MYSQL_PASSWORD'], 
-    #     db=app.config['MYSQL_DB'], 
-    #     charset='utf8mb4', 
-    #     client_flag=CLIENT.MULTI_STATEMENTS)
-    
-    # conn.ping(reconnect=True)      
+def submit(): 
 
     Sensitivity_level = 0  
     Assertiveness_level = 0  
