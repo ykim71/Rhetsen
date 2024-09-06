@@ -48,6 +48,8 @@ def home():
     with conn.cursor() as cur:
         pass
     
+    conn.close() 
+
     # mysql = pymysql.connect(
     #     host=app.config['MYSQL_HOST'],
     #     user=app.config['MYSQL_USER'],
