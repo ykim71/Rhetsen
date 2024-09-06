@@ -18,10 +18,10 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 def get_db():
     return pymysql.connect(
-        'ip',
-        'user',
-        'password',
-        'db_name',
+        host=app.config['MYSQL_HOST'],
+        user=app.config['MYSQL_USER'],
+        password=app.config['MYSQL_PASSWORD'],
+        db=app.config['MYSQL_DB'],
         cursorclass=pymysql.cursors.DictCursor
     )
 
