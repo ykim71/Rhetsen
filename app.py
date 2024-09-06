@@ -16,6 +16,15 @@ app.config['MYSQL_PASSWORD'] = os.environ.get('MYSQL_PASSWORD')
 app.config['MYSQL_DB'] = 'quiz_app'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
+def get_db():
+    return pymysql.connect(
+        'ip',
+        'user',
+        'password',
+        'db_name',
+        cursorclass=pymysql.cursors.DictCursor
+    )
+
 # Create a MySQL database connection
 mysql = pymysql.connect(
     host=app.config['MYSQL_HOST'],
@@ -35,14 +44,9 @@ with open('questions_demo.json', 'r') as file:
 
 @app.route('/')
 def home():
-    conn = pymysql.connect(
-    host=app.config['MYSQL_HOST'],
-    user=app.config['MYSQL_USER'],
-    password=app.config['MYSQL_PASSWORD'],
-    db=app.config['MYSQL_DB'],
-    cursorclass=pymysql.cursors.DictCursor
-)
-    query = conn.cursor()
+    conn = get_db()
+    with conn.cursor() as cur:
+        pass
     
     # mysql = pymysql.connect(
     #     host=app.config['MYSQL_HOST'],
