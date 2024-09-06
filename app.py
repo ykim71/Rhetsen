@@ -43,11 +43,6 @@ def home():
     cursorclass=pymysql.cursors.DictCursor
 )
     query = conn.cursor()
-    try:
-        query.execute ( "" )
-    except pymysql.err.InterfaceError:
-        conn.ping(reconnect=True)
-        query.execute ( "" )
     
     # mysql = pymysql.connect(
     #     host=app.config['MYSQL_HOST'],
