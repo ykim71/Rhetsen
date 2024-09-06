@@ -35,16 +35,30 @@ with open('questions_demo.json', 'r') as file:
 
 @app.route('/')
 def home():
-    mysql = pymysql.connect(
-        host=app.config['MYSQL_HOST'],
-        user=app.config['MYSQL_USER'],
-        password=app.config['MYSQL_PASSWORD'],
-        db=app.config['MYSQL_DB'],
-        cursorclass=pymysql.cursors.DictCursor)
+    conn = pymysql.connect(
+    host=app.config['MYSQL_HOST'],
+    user=app.config['MYSQL_USER'],
+    password=app.config['MYSQL_PASSWORD'],
+    db=app.config['MYSQL_DB'],
+    cursorclass=pymysql.cursors.DictCursor
+)
+    query = conn.cursor()
+    try:
+        query.execute ( "" )
+    except pymysql.err.InterfaceError:
+        conn.ping(reconnect=True)
+        query.execute ( "" )
     
-    cursor = mysql.cursor()
-    mysql.ping(reconnect=True)
-    cursor.close()
+    # mysql = pymysql.connect(
+    #     host=app.config['MYSQL_HOST'],
+    #     user=app.config['MYSQL_USER'],
+    #     password=app.config['MYSQL_PASSWORD'],
+    #     db=app.config['MYSQL_DB'],
+    #     cursorclass=pymysql.cursors.DictCursor)
+    
+    # cursor = mysql.cursor()
+    # mysql.ping(reconnect=True)
+    # cursor.close()
 
     return render_template('index.html')
 
