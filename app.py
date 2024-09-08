@@ -47,7 +47,8 @@ def home():
     conn = get_db()
     with conn.cursor() as cur:
         pass
-    
+    conn.ping(reconnect=True)
+
     # mysql = pymysql.connect(
     #     host=app.config['MYSQL_HOST'],
     #     user=app.config['MYSQL_USER'],
