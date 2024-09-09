@@ -44,11 +44,22 @@ with open('questions_demo.json', 'r') as file:
 
 @app.route('/')
 def home():
-    conn = get_db()
-    with conn.cursor() as cur:
-        pass
-    conn.close()
-    conn.ping(reconnect=True)
+    try:
+        conn = get_db()
+        conn.ping(reconnect=True)
+        print("Ping successful, connection is active!")
+    except pymysql.MySQLError as e:
+        print(f"Error connecting to the database: {e}")
+    
+    finally:
+        if conn:
+            conn.close()
+            print("Connection closed.")
+
+    # with conn.cursor() as cur:
+    #     pass
+    # conn.close()
+    # conn.ping(reconnect=True)
 
     # mysql = pymysql.connect(
     #     host=app.config['MYSQL_HOST'],
@@ -253,8 +264,8 @@ def submit():
 
     # Commit the changes to the database
     mysql.commit()
-#    cursor.close()
-#    mysql.close() 
+    cursor.close()
+    mysql.close() 
 
     return render_template('result.html', Sensitivity_level=Sensitivity_level, Assertiveness_level=Assertiveness_level, Reflector_level=Reflector_level, results=results)
 
