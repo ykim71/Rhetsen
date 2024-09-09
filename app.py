@@ -25,14 +25,14 @@ def get_db():
         cursorclass=pymysql.cursors.DictCursor
     )
 
-# Create a MySQL database connection
-mysql = pymysql.connect(
-    host=app.config['MYSQL_HOST'],
-    user=app.config['MYSQL_USER'],
-    password=app.config['MYSQL_PASSWORD'],
-    db=app.config['MYSQL_DB'],
-    cursorclass=pymysql.cursors.DictCursor
-)
+# # Create a MySQL database connection
+# mysql = pymysql.connect(
+#     host=app.config['MYSQL_HOST'],
+#     user=app.config['MYSQL_USER'],
+#     password=app.config['MYSQL_PASSWORD'],
+#     db=app.config['MYSQL_DB'],
+#     cursorclass=pymysql.cursors.DictCursor
+# )
 
 # Load questions from JSON file
 with open('questions_rhetsen.json', 'r') as file:
@@ -44,17 +44,17 @@ with open('questions_demo.json', 'r') as file:
 
 @app.route('/')
 def home():
-    try:
-        conn = get_db()
-        conn.ping(reconnect=True)
-        print("Ping successful, connection is active!")
-    except pymysql.MySQLError as e:
-        print(f"Error connecting to the database: {e}")
+    # try:
+    #     conn = get_db()
+    #     conn.ping(reconnect=True)
+    #     print("Ping successful, connection is active!")
+    # except pymysql.MySQLError as e:
+    #     print(f"Error connecting to the database: {e}")
     
-    finally:
-        if conn:
-            conn.close()
-            print("Connection closed.")
+    # finally:
+    #     if conn:
+    #         conn.close()
+    #         print("Connection closed.")
 
     # with conn.cursor() as cur:
     #     pass
@@ -94,6 +94,13 @@ def generate_session_id():
 @app.route('/submit', methods=['POST'])
 def submit(): 
 
+    try:
+        conn = get_db()
+        conn.ping(reconnect=True)
+        print("Ping successful, connection is active!")
+    except pymysql.MySQLError as e:
+        print(f"Error connecting to the database: {e}")
+    
     Sensitivity_level = 0  
     Assertiveness_level = 0  
     Reflector_level = 0 
@@ -230,7 +237,7 @@ def submit():
         question_id = demo_question['question_id']
         demo_answers.append(request.form.getlist(str(question_id)))
 
-    cursor = mysql.cursor()
+    cursor = conn.cursor()
     cursor.execute(
         "INSERT INTO session_info (session_id, page_load_time, submission_time, gender, education, age, religion, political_ideology, occupation, household_income, relationship, news_use, social_media_use) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
         (session.get('session_id'), session.get('page_load_time'), datetime.now(), demo_answers[0], demo_answers[1], demo_answers[2], demo_answers[3], demo_answers[4],demo_answers[5],demo_answers[6],demo_answers[7], demo_answers[8], demo_answers[9])
@@ -263,7 +270,7 @@ def submit():
             
 
     # Commit the changes to the database
-    mysql.commit()
+    conn.commit()
     # cursor.close()
     # mysql.close() 
 
