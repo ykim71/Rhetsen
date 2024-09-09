@@ -47,6 +47,7 @@ def home():
     conn = get_db()
     with conn.cursor() as cur:
         pass
+    conn.close()
     conn.ping(reconnect=True)
 
     # mysql = pymysql.connect(
@@ -252,7 +253,7 @@ def submit():
 
     # Commit the changes to the database
     mysql.commit()
-    cursor.close()
+#    cursor.close()
 #    mysql.close() 
 
     return render_template('result.html', Sensitivity_level=Sensitivity_level, Assertiveness_level=Assertiveness_level, Reflector_level=Reflector_level, results=results)
